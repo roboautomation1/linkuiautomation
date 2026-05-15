@@ -1,4 +1,4 @@
-{
+window.__ATC_CONFIG__ = {
   "title": "Vivo India ATC",
   "categories": [
     {
@@ -10,60 +10,45 @@
           "url": "https://inbpm.vivo.xyz/portal/v3/tasks/blacklog"
         },
         {
-          "title": "Main Project Task Timeline",
+          "title": "PD Android Main Project  Timeline",
           "url": "https://docs.vivo.xyz/detail/office/020101665023?sheetIndex=2"
+        },
+        {
+          "title": "India Task Management Sheet (Henry)",
+          "url": "https://docs.vivo.xyz/detail/office/020104105009?sheetIndex=3"
         },
         {
           "title": "Man Power",
           "url": "https://docs.vivo.xyz/i/sLWZZYj4V9lr0EImlpRlAE6qpVzw5jC_5ursAA5Y-_g?sheetIndex=2"
         },
         {
-          "title": "Daily Project Status",
-          "url": "https://docs.vivo.xyz/detail/office/020104105009?sheetIndex=3"
-        },
-        {
           "title": "China Daily Report Status",
           "url": "https://docs.vivo.xyz/detail/office/020108645839?sheetIndex=7"
         },
+     
         {
-          "title": "Manpower Status",
-          "url": "https://docs.vivo.xyz/i/sLWZZYj4V9lr0EImlpRlAE6qpVzw5jC_5ursAA5Y-_g?sheetIndex=2"
-        },
-        {
-          "title": "India Task Management Sheet (Always Update Henry)",
-          "url": "https://docs.vivo.xyz/detail/office/020104105009?sheetIndex=3"
-        },
-        {
-          "title": "Daily Report",
+          "title": "Daily Report ",
           "url": "https://docs.vivo.xyz/i/DFg1C7p7TAD9MTo2w9s208DMkOG-pwaoX3LbLUE8IOw?sheetIndex=9"
         }
       ]
     },
-    {
-      "name": "Feedback Links",
-      "icon": "fa-comments",
-      "links": [
-        {
-          "title": "Regular Feedback Link",
-          "url": "https://docs.vivo.xyz/i/U-CpD_OUVW4D2uDoBqZiI5pqGOblcfOZlzBia-QSS9I?sheetIndex=3"
-        }
-      ]
-    },
+ 
     {
       "name": "Tools",
       "icon": "fa-tools",
       "links": [
         {
-          "title": "Log Extraction Link",
-          "url": "https://ex-onelogmng-asia.vmic.xyz/admin/file-metadata/file-metadata"
+          "title": "Project Test Cases Assign",
+          "url": "https://qcp-in.vivo.xyz/tot/subSheet"
         },
+       
         {
           "title": "Bug Meat India",
           "url": "https://meat-in.vivo.com/project/bug?projectId=1080&issueTypeId=10482"
         },
-        {
-          "title": "Project Test Cases Assign",
-          "url": "https://qcp-in.vivo.xyz/tot/subSheet?type=overseasSub&sheetId=432041"
+         {
+          "title": "Log Extraction Link",
+          "url": "https://ex-onelogmng-asia.vmic.xyz/admin/file-metadata/file-metadata"
         }
       ]
     },
@@ -84,6 +69,15 @@
           "url": "https://docs.vivo.xyz/detail/office/020114518186"
         }
       ]
+    },   {
+      "name": "Feedback Links",
+      "icon": "fa-comments",
+      "links": [
+        {
+          "title": "Regular Feedback Link",
+          "url": "https://docs.vivo.xyz/i/U-CpD_OUVW4D2uDoBqZiI5pqGOblcfOZlzBia-QSS9I?sheetIndex=3"
+        }
+      ]
     }
   ]
-}
+};

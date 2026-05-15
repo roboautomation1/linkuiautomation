@@ -164,6 +164,12 @@
       text-decoration: none;
       color: inherit;
     }
+    .brand-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      object-position: center;
+    }
     .brand-icon {
       width: 44px;
       height: 44px;
@@ -560,7 +566,7 @@
   </style>
 </head>
 <body>
-  <!-- fetch('config.json') must be served over http(s); file:// may block requests -->
+  <!-- Data loads from config.js (same folder); works with file:// and http(s). -->
   <div id="loading-overlay" role="status" aria-live="polite" aria-busy="true">
     <div class="spinner" aria-hidden="true"></div>
     <p class="loading-text">Loading dashboard…</p>
@@ -577,7 +583,8 @@
       <div class="wrap">
         <div class="site-header-inner">
           <a class="brand" href="#" id="brand-link" aria-label="Home">
-            <span class="brand-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
+            <img src="logo.png" alt="Vivo Logo" class="brand-logo" />
+            <!-- <span class="brand-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span> -->
             <div class="brand-text">
               <h1 id="header-title">Vivo India ATC</h1>
               <span>Link hub</span>
@@ -633,15 +640,15 @@
     }
   </style>
 
+  <script src="config.js"></script>
   <script>
     /**
      * Vivo India ATC — vanilla JS dashboard
-     * Loads categories and links from config.json via fetch().
+     * Loads categories and links from window.__ATC_CONFIG__ (set by config.js).
      */
     (function () {
       'use strict';
 
-      var CONFIG_URL = 'config.json';
       var RECENT_KEY = 'vivoIndiaAtcRecentLinks';
       var MAX_RECENT = 18;
 
@@ -918,30 +925,42 @@
         hideError();
         els.app.setAttribute('hidden', '');
 
-        return fetch(CONFIG_URL, { cache: 'no-store' })
-          .then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status + ' — could not read config.json.');
-            return res.json();
-          })
-          .then(function (data) {
-            var err = validateConfig(data);
-            if (err) throw new Error(err);
-            lastLoadTime = new Date();
-            setLoading(false);
-            els.app.removeAttribute('hidden');
-            render(data);
-            els.footerYear.textContent = String(lastLoadTime.getFullYear());
-            els.footerUpdated.textContent = 'Last updated: ' + lastLoadTime.toLocaleString();
-          })
-          .catch(function (e) {
-            setLoading(false);
-            var msg = e && e.message ? e.message : 'Failed to load configuration.';
-            if (String(msg).indexOf('JSON') !== -1 || e instanceof SyntaxError) {
-              msg = 'config.json is not valid JSON.';
-            }
-            showError(msg + ' Serve this folder over HTTP (not file://) and ensure config.json exists.');
-            showToast(msg, 'error');
-          });
+        var raw = window.__ATC_CONFIG__;
+        if (raw === undefined || raw === null) {
+          setLoading(false);
+          var missing =
+            'Configuration not found. Place config.js next to index.html and ensure it sets window.__ATC_CONFIG__.';
+          showError(missing);
+          showToast('Config missing.', 'error');
+          return Promise.resolve();
+        }
+
+        var data;
+        try {
+          data = JSON.parse(JSON.stringify(raw));
+        } catch (copyErr) {
+          setLoading(false);
+          showError('Could not read configuration from window.__ATC_CONFIG__.');
+          showToast('Invalid config data.', 'error');
+          return Promise.resolve();
+        }
+
+        try {
+          var err = validateConfig(data);
+          if (err) throw new Error(err);
+          lastLoadTime = new Date();
+          setLoading(false);
+          els.app.removeAttribute('hidden');
+          render(data);
+          els.footerYear.textContent = String(lastLoadTime.getFullYear());
+          els.footerUpdated.textContent = 'Last updated: ' + lastLoadTime.toLocaleString();
+        } catch (e) {
+          setLoading(false);
+          var msg = e && e.message ? e.message : 'Failed to load configuration.';
+          showError(msg + ' Fix config.js and use Retry to reload.');
+          showToast(msg, 'error');
+        }
+        return Promise.resolve();
       }
 
       function initHeaderScroll() {
@@ -1001,7 +1020,7 @@
 
       function bindGlobalListeners() {
         els.retryBtn.addEventListener('click', function () {
-          loadConfig();
+          location.reload();
         });
 
         els.search.addEventListener('input', function () {
