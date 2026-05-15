@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+
+# Optional local overrides (keep secrets out of git)
+# config.local.json
+# .env
+# .env.*
+
+# If you add Node tooling later
+node_modules/
